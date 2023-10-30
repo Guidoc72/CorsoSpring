@@ -5,7 +5,13 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
-/* Richiede la dipendenza (import org.springframework.web.reactive.function.client.WebClient;)
+/* 
+  Il framework web reactive-stack, Spring WebFlux, è stato aggiunto a Spring 5. È completamente non bloccante.
+  Nelle applicazioni MVC tradizionali, un nuovo thread servlet viene creato (o ottenuto dal pool di thread) quando una richiesta arriva al server. 
+  Il termine "reattivo" si riferisce a modelli di programmazione basati sulla reazione ai cambiamenti. 
+  Approfondimenti:  https://howtodoinjava.com/spring-webflux/spring-webflux-tutorial/
+  					https://dzone.com/articles/build-reactive-rest-apis-with-spring-webflux
+  Richiede la dipendenza (import org.springframework.web.reactive.function.client.WebClient;)
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-webflux</artifactId>
