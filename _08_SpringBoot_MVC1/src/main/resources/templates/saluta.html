@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html 	lang="it"
+		xmlns="http://www.thymeleaf.org">
+		
+	<head>
+		<meta charset="UTF-8">
+		<title>Saluta</title>
+	</head>
+	<body>
+		<h1>Pagina di saluto</h1>
+		<p>Ciao, <span th:text="${utente}"></span></p>
+		<p>oppure:</p>
+		<p>Ciao, <span data-th-text="${utente}"></span></p>
+		 <hr>
+		<p>Altro modo di concatenare: </p> 
+		<p th:text="'Benvenuto, ' + ${utente}"></p>
+	</body>
+</html>
+
+
+
