@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html 	lang="it"
+		xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Destinazione</title>
+	</head>
+	<body>
+		
+		<!-- Messaggio Esternalizzato - Prende i messaggi presenti nei files message_xx.properties
+			 in base alla localizzazione del browser -->
+		<h1 th:text="#{welcome.message}"></h1>
+		
+		<div th:object="${impiegato}">
+			<h3>Benvenuto, <span th:text="*{nome}"></span>!</h3>
+			<p>Numero di matricola: <span th:text="*{id}"></span></p>
+			<p>Nome completo: <span th:text="*{nome} + ' ' + *{cognome}"></span></p>
+		</div>
+	
+	</body>
+</html>
+
+

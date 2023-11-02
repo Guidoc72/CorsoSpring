@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html 	lang="it"
+		xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Home</title>
+	</head>
+	<body>
+		
+		<h1>Impiegato</h1>
+		<!-- questa action invia i dati al controller su questa pagina
+			 i dati verranno gestiti tramite l'oggetto "impiegato" creato nel controller
+			 e ricevuto nella pagina tramite l'obj "model" -->
+		<form th:action="@{/}" method="post" th:object="${impiegato}">
+			<div>
+				<label>Id</label>			<!-- invece di name="" usiamo th:field -->
+				<input type="number" min="1" th:field="${impiegato.id}">
+			</div>
+			<div>
+				<label>Nome</label>
+				<input type="text" th:field="*{nome}"> 
+				<!-- *{attrib} *corrisponde al "this" e ci evita di dover specificare 
+				l'oggetto corrente -->
+			</div>
+			<div>
+				<label>Cognome</label>
+				<input type="text" th:field="${impiegato.cognome}">
+			</div>
+			<input type="submit" value="Invia">
+		</form>
+			
+
+
+	</body>
+</html>
+
+
