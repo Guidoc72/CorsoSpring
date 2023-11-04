@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+h1, h2{
+	color: #ddd !important;
+}
+
+body{
+	background-color: #777 !important;
+}
+
+.container{
+	background-color: #444;
+	border-radius: 8px;
+	max-width: 70%;
+	min-width: 50%;
+}
+
+span{
+	width: 100px;
+}
+
+.table{
+/*	max-width: 70%;
+	min-width: 50%;*/
+}

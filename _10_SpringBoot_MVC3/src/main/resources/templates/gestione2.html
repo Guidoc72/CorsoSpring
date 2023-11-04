@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Gestione Impiegati</title>
+	</head>
+	<body>
+		
+		<h1>Gestione Impiegati</h1>
+<!-- Siccome in un form, con th:object è possibile specificare un solo oggetto, 
+se vogliamo popolare più oggetti contemporaneamente, dobbiamo cambiare approccio e 
+usare th:value="${oggetto.campo}" direttamente negli input  -->		
+		<form th:action="@{/impiegati}" method="post" >
+			 <div>   
+			    <label>Nome:</label>
+			    <input type="text" th:value="${impiegato.nome}" />
+			</div>
+			 <div>   
+			    <label>Cognome:</label>
+			    <input type="text" th:value="${impiegato.cognome}" />
+			</div>
+			<div>   
+			    <label>Via:</label>
+			    <input type="text" th:value="${indirizzo.viaPiazza}" />
+			</div>
+			<div>   
+			    <label>Civico:</label>
+			    <input type="text" th:value="${indirizzo.civico}" />
+			</div>
+	
+		    <button type="submit">Invia</button>
+			
+		</form>
+		
+		
+	</body>
+</html>
