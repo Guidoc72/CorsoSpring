@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>IDestination Page</title>
+</head>
+<body>
+
+	<h1>Destination Page</h1>
+	<h3>Flash Attribute</h3>
+	<br>
+	<p th:text="${message}"></p>
+	<p>Student: [[${student.name}]]</p>
+	<p>Email: 
+		<a th:href="'mailto:' + ${student.email}">
+			<b>[[${student.email}]]</b>
+		</a>
+	</p>
+</body>
+</html>
+
+

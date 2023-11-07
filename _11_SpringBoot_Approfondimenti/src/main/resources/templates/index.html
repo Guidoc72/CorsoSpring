@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf-org">
+	<head>
+	<meta charset="UTF-8">
+	    <title>Forward and Redirect Example</title>
+	</head>
+	<body>
+	    <h1>Forward Example</h1>
+	    <p>Questa è la pagina di partenza.</p>
+	    <form action="/forward" method="get">
+	        <button type="submit">Inoltra la richiesta</button>
+	    </form>
+	    
+	    <br><hr><br>
+	    
+        <h1>Redirect Example</h1>
+	    <p>Questa è la pagina di partenza.</p>
+	    <form action="/redirect" method="get">
+	        <button type="submit">Reindirizza la richiesta</button>
+	    </form>
+	    
+	    <br><hr><br>
+	    
+        <form action="#" th:action="@{/flash_attribute}" method="get">
+	        <button type="submit">Flash Attribute</button>
+	    </form>
+	    <!-- button th:action="redirect:/flash_attribute" th:method="get"  >Flash Attribute</button  -->
+	   
+	</body>
+</html>
