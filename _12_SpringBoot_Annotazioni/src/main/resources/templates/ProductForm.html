@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Add Product Form</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+</head>
+<body> 
+
+	<div id="global">
+		<form action="save-product" method="post">
+		    <fieldset>
+		        <legend>Add a product</legend>
+		        <p>
+		            <label for="name">Product Name: </label>
+		            <input type="text" id="name" name="name" 
+		                tabindex="1">
+		        </p>
+		        <p>
+		            <label for="description">Description: </label>
+		            <input type="text" id="description" 
+		                name="description" tabindex="2">
+		        </p>
+		        <p>
+		            <label for="price">Price: </label>
+		            <input type="text" id="price" name="price" 
+		                tabindex="3">
+		        </p>
+		        <p id="buttons">
+		            <input id="reset" type="reset" tabindex="4">
+		            <input id="submit" type="submit" tabindex="5" 
+		                value="Add Product">
+		        </p>
+		    </fieldset>
+		</form>
+	</div>
+	<!--
+		L’ordine di tabulazione è l’ordine in cui un utente sposta lo stato attivo 
+		da un controllo a un altro premendo il tasto TAB. Ogni modulo ha un proprio 
+		ordine di tabulazione. Per impostazione predefinita, l’ordine di tabulazione 
+		corrisponde all’ordine in cui sono stati creati i controlli. Tuttavia, è 
+		possibile modificare l’ordine di tabulazione per i controlli in modo che 
+		corrisponda all’ordine logico in cui l’utente dovrebbe navigare tra i controlli. 
+	-->	
+</body>
+</html>

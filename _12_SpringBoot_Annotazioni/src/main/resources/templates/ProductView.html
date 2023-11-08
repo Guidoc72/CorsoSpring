@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>View Product</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+</head>
+<body>
+<div id="global">
+    <h4 th:text="${message}"></h4>
+    <p>
+        <h5>Details:</h5>
+        Product Name: <span th:text="${product.name}"></span><br/>
+        Description: <span th:text="${product.description}"></span><br/>
+        Price: $<span th:text="${product.price}"></span>
+    </p>
+</div>
+</body>
+</html>

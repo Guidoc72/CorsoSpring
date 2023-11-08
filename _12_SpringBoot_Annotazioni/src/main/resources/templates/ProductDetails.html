@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Save Product - Details</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
+
+</head>
+<body>
+<div id="global">
+    <h4>The product has been saved.</h4>
+    <p>
+        <h5>Details:</h5>
+        Product Name: [[${product.name}]]<br/>
+        Description: [[${product.description}]]<br/>
+        Price: $[[${product.price}]]
+    </p>
+</div>
+</body>
+</html>
