@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html 	xmlns="http://www.w3.org/1999/xhtml" 
+		xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Nuovo contatto</title>
+
+</head>
+
+<body>
+	<form id="new-contact-form" method="post" th:action="@{/contacts/new}" th:object="${contactForm}">
+		<h2>Nuovo contatto</h2>
+		<div>
+			<label>Nome</label><br>
+			<input th:field="*{firstName}" type="text" />
+<!-- Una volta creata la gestione degli errori di validazione, questo blocco li visualizzerà.
+		th:if   in accoppiata con l’espressione    #fields.hasErrors(...), 
+		visualizzerà questo blocco solo nel caso in cui il campo contenga effettivamente errori.
+-->			
+			<div th:if="${#fields.hasErrors('firstName')}">
+				<span th:errors="*{firstName}"></span>
+			</div>
+		</div>
+		<div>
+			<label>Cognome</label><br>
+			<input th:field="*{lastName}" type="text" />
+			<div th:if="${#fields.hasErrors('lastName')}">
+				<span th:errors="*{lastName}"></span>
+			</div>
+		</div>
+		<div>
+			<label>Telefono</label><br>
+			<input th:field="*{phone}" type="text" />
+			<div th:if="${#fields.hasErrors('phone')}">
+				<span th:errors="*{phone}"></span>
+			</div>			
+		</div>
+		<div>
+			<label>Email</label><br>
+			<input th:field="*{email}" type="text" />
+			<div th:if="${#fields.hasErrors('email')}">
+				<span th:errors="*{email}"></span>
+			</div>			
+		</div>		
+		<div>
+			<input type="submit" value="Invia" />
+		</div>
+	</form>
+</body>
+
+</html>
