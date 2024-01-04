@@ -1,0 +1,132 @@
+Progetto introduttivo a Spring Data
+Per ora non integriamo le dipendenze necessarie, ma solo:
+• Spring Web
+• Spring Boot DevTools
+• Spring Boot Actuator: fornisce endpoint che forniscono informazioni specifiche, come se l’applicazione è sana o meno, 
+						le cache nell’applicazione e altro ancora. Inoltre, è possibile creare endpoint personalizzati 
+						che possono estendere o meno un endpoint esistente. 
+• Spring Boot Processor: genera i metadati per gli sviluppatori da utilizzare nei file di configurazione come YML o 
+						proprietà, in modo che sia più semplice conoscere le proprietà disponibili per una configurazione 
+						perché si inizia a digitare e l’IDE aiuta con le opzioni da utilizzare nel file.
+
+Questo esercizio si concentra sulla creazione di un progetto di base che espone endpoint in cui si include un livello 
+di logica per accedere ai database usando Spring Data.
+
+Settaggi aggiuntivi di application.properties
+management:
+	endpoints:
+		web:
+			base-path: /
+			exposure:
+				include: "*" 			# Indicates that all the endpoints expose it.
+server:
+	port: 8080 							# Indicate the default port of the application
+	servlet:
+		context-path: /api/catalog 		# Indicate the default url
+		
+		
+Per prima cosa creiamo una classe DTO (Data Transfer Object) che corrisponde per aspetto e funzionalità a una classe POJO.
+Una classe DTO, è l’oggetto che la maggior parte degli endpoint riceve e contiene tutte le informazioni su un oggetto scelto.
+• Crea CurrencyDTO
+
+La classe CurrencyService contiene tutta la logica di business relativa alle operazioni CRUD della valuta. 
+Include l’annotazione @Service, che consente di delegare la creazione e l’iniezione in altre classi in Spring Boot. 
+Questa classe contiene tutta la logica di business delle operazioni CRUD.
+• Crea CurrencyService
+
+
+La classe CurrencyService non contiene molta logica perché in questo punto, non c’è un meccanismo di persistenza, 
+ma questa classe deve interagire con diversi repository in futuro. 
+
+• Dopo è necessario definire un RestController che esponga ciascuna delle operazioni che è possibile eseguire con le valute.
+	Qui usiamo la classe ResponseEntity<T>
+	La classe ResponseEntity<T> in Spring Boot è una classe che rappresenta l’intera risposta HTTP. 
+	È possibile controllare tutto ciò che vi viene inserito: codice di stato, intestazioni e corpo. 
+	Viene utilizzata per restituire una risposta HTTP personalizzata da un endpoint. 
+	La classe ResponseEntity<T> è un tipo generico. Di conseguenza, è possibile utilizzare qualsiasi tipo come corpo della risposta. 
+	Ad esempio, se si desidera restituire una stringa come corpo della risposta, è possibile utilizzare ResponseEntity<String>. 
+	La classe ResponseEntity<T> include anche un codice di stato HTTP, che indica se la richiesta è stata elaborata correttamente 
+	o se si è verificato un errore. Ad esempio, se la richiesta è stata elaborata correttamente, il codice di stato sarà 200 OK. 
+	Se si è verificato un errore, il codice di stato sarà diverso, ad esempio 404 Not Found. La classe ResponseEntity<T> può essere 
+	utilizzata in combinazione con un @RestController per restituire una risposta personalizzata da un endpoint. 
+
+Ora proviamo ad eseguire l'applicazione:
+Prova a ottenere qualsiasi informazione sulla valuta per verificare se il mapping è corretto. 
+La risposta deve essere simile a quella mostrata sotto, in cui si invoca 
+	http://localhost:8080/currency/1
+e si ottiene:
+	{
+		"id": 1,
+		"code": "USD",
+		"description": "Dollar",
+		"enable": true,
+		"decimalPlaces": 2
+	}
+		
+		
+BEST PRACTICES:
+	DOCUMENTAZIONE ENDPOINTS
+	Per quanto riguarda gli endpoint come URL, REQUEST/RESPONSE e metodi HTTP, esistono diversi metodi per documentare tutte queste informazioni. 
+	Lo standard predefinito è la specifica OpenAPI.8 
+	Framework come Spring Boot e Quarkus offrono librerie per documentare gli endpoint e generare dinamicamente la documentazione 
+	(vedi pagina 59 - Beginning Spring Data)
+
+	LOG
+	La registrazione è una delle funzionalità più importanti per trovare e risolvere i problemi in ambienti 
+	pre-produttivi o produttivi perché fornisce informazioni che aiutano a riprodurre o capire il problema.	
+	Spring Boot utilizza Apache Commons Logging per tutti i log interni, ma lascia aperta l’implementazione sottostante del log. 
+	Le configurazioni predefinite sono fornite per Java Util Logging, Log4J, Log4J2 e Logback. 
+	In ogni caso, i logger sono preconfigurati per utilizzare l’output della console con la possibilità di utilizzare anche l’output del file
+	Strumenti come ELK (Elastic Logstash9 e Kibana10) o CloudWatch11 di AWS sono alternative per avere tutti 
+	i log dell’applicazione delle istanze in un unico posto. 
+	
+	
+• A questo punto dobbiamo aggiungere "Spring Data JPA" e "MySQL Driver" agli starter del progetto ed attendere che si aggiorni.
+Per assicurarci che tutto si sia sincronizzato andare sul progetto > Maven > Update Project
+
+• Andiamo su MySQL e creiamo il DB secondo gli script che abbiamo qui nel progetto
+
+• Impostiamo l'accesso al DB nel file application.properties
+Per gli update del DB abbiamo diverse scelte oltre ad "always":
+	• never: 	Questa opzione indica che lo schema del database non verrà generato automaticamente all’avvio dell’applicazione. 
+				Questo è utile se si desidera creare manualmente lo schema del database o se si desidera utilizzare uno schema esistente.
+	• embedded: Questa opzione indica che lo schema del database verrà generato automaticamente solo se si utilizza un database 
+				incorporato come H2 o HSQLDB.
+	• on_demand:Questa opzione indica che lo schema del database verrà generato automaticamente solo quando viene richiesto. 
+				Questo è utile se si desidera generare lo schema del database solo quando si utilizza l’applicazione per la prima volta.	
+	Riferimenti: https://www.baeldung.com/spring-boot-data-sql-and-schema-sql
+Per ora impostiamo "never" perchè abbiamo già generato e popolato il DB.	
+
+La nostra applicazione ancora non interagisce con il DB. 
+• A questo punto dobbiamo creare un'Entity. 	
+	Aggiungiamo le annotazioni necessarie alla classe DTO
+
+• Il prossimo passo è quello di creare una interfaccia che acceda alla tabella "currency" ed esegua diverse operazioni (CRUD, ecc...)
+	Questa interfaccia estende CrudRepository e viene specializzata con la classe DTO e Long	
+	
+	NOTA: Precedentemente abbiamo discusso del modello DTO, che è un modo per trasferire/spostare le informazioni in diverse fasi senza 
+		esporre la progettazione del nostro database. 
+		Potremmo trovarci nella situazione in cui la classe Entity e la classe DTO non coincidono e magari hanno dei campi con nomi o tipi diversi.
+		Uno dei problemi di questo modello è come mappare gli attributi da una classe all’altra senza scrivere molte righe di codice. 
+		Per risolvere questo problema, Java offre librerie per eseguire questa operazione di mappatura, riducendo il numero di righe di codice:
+			usiamo Mapper Configuration per convertire un’entità in un DTO e creiamo un'interfaccia ApiMapper
+			Se vogliamo usare MapStruct dobbiamo aggiungere le dipendenze nel pom.xml. 
+					https://mapstruct.org/documentation/installation/
+		Per ora per semplificare le cose, manterremo un'unica classe DTO/Entity che coincide.
+	
+• Passiamo a sistemare la classe Service esistente, per usare il repository. 
+	Qui, se abbiamo usato ApiMapper, alcuni dati dovranno essere convertiti tramite questa 
+	interfaccia. (Vedi pag. 69 del manuale Beginngin Spring Data)
+	
+	
+					
+		
+	
+	
+	
+	
+	
+	
+	
+	
+		
