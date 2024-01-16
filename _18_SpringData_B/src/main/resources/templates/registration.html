@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html 	lang="it"
+		xmlns="http://www.thymeleaf.org">
+	<head>
+ 		<th:block th:insert="~{fragments/general.html :: header_fragment}"></th:block>
+
+
+		<title>Registration</title>
+	</head>
+	<body>
+
+	<!--	<div th:if="${saveResultMessage}">
+		    <p th:text="${saveResultMessage}"></p>
+		<input type="hidden" id="message" th:value="${saveResultMessage}" />
+		</div>  -->
+
+
+		<header th:insert="~{fragments/general.html :: login_registration_fragment}"></header>
+
+
+
+
+
+		<div class="container mt-5">
+
+			<h1>Registration</h1>
+			<form th:action="@{/registerRequest}" method="post" th:object="${new_user}">
+ <!--
+ 				Questo stampa la lista di tutti gli errori
+			    <div th:each="error : ${errors}">
+			        <p th:text="${error.defaultMessage}" class="error-message"></p>
+			    </div>
+-->
+				<div class="mb-3">
+					<label for="firstname" class="form-label">First Name</label>
+					<input type="text" class="form-control" id="firstname"  aria-describedby="firstnameHelp" th:field="*{firstName}" required>
+					<div id="firstnameHelp" class="form-text">(*)</div>
+<!--				Questo stampa l'errore personalizzato su ogni campo	-->
+					<div th:each="fieldError : ${errors}">
+					    <p th:if="${fieldError.field == 'firstName'}" th:text="${fieldError.defaultMessage}" class="error-message"></p>
+					</div>
+				</div>
+				<div class="mb-3">
+					<label for="lastname" class="form-label">Last Name</label>
+					<input type="text" class="form-control" id="lastname"  aria-describedby="lastnameHelp" th:field="*{lastName}" required>
+					<div id="lastnameHelp" class="form-text">(*)</div>
+					<div th:each="fieldError : ${errors}">
+					    <p th:if="${fieldError.field == 'lastName'}" th:text="${fieldError.defaultMessage}" class="error-message"></p>
+					</div>
+				</div>					
+				<div class="mb-3">
+					<label for="email" class="form-label">Email address</label>
+					<input type="email" class="form-control" id="email" aria-describedby="emailHelp" th:field="*{email}" required>
+					<div id="emailHelp" class="form-text">(*) Please enter a valid email</div>
+					<div th:each="fieldError : ${errors}">
+					    <p th:if="${fieldError.field == 'email'}" th:text="${fieldError.defaultMessage}" class="error-message"></p>
+					</div>				
+				</div>					
+				<div class="mb-3">
+					<label for="officephone" class="form-label">Office phone number</label>
+					<input type="tel" class="form-control" id="officephone" th:field="*{phone}">
+				</div>				
+				<div class="mb-3">
+					<label for="mobile" class="form-label">Mobile phone number</label>
+					<input type="tel" class="form-control" id="mobile"  th:field="*{mobile}">
+				</div>	
+				<div class="mb-3">
+					<label for="username" class="form-label">Choose Username</label>
+					<input type="text" class="form-control" id="username"  th:field="*{username}" aria-describedby="usernameHelp"  required>
+					<div id="usernameHelp" class="form-text">(*)</div>
+					<div th:each="fieldError : ${errors}">
+					    <p th:if="${fieldError.field == 'username'}" th:text="${fieldError.defaultMessage}" class="error-message"></p>
+					</div>	
+				</div>
+				<div class="mb-3">
+					<label for="password" class="form-label">Choose Password</label>
+					<input type="password" class="form-control" id="password" aria-describedby="passwordHelp" th:field="*{password}" onkeyup="checkPassword()"  required>
+					<div id="passwordHelp" class="form-text">(*) Choose a password long at least 10 characters, using special chars like $&!()[]?@#,;+-*.</div>
+				</div>
+				<div class="mb-3">
+					<label for="passwordConfirm" class="form-label">Confirm Password</label>
+					<input type="password" class="form-control" id="passwordConfirm" aria-describedby="passwordConfirmHelp" onkeyup="checkPassword()"  required>
+					<div id="passwordConfirmHelp" class="form-text">(*)</div>
+				</div>
+				<input type="hidden" id="message" th:value="${saveResultMessage}" />
+
+				<button type="submit" class="btn btn-primary" id="submitButton">Register</button>
+				<button type="reset" class="btn btn-warning">Reset Form</button>
+				<br>
+				<p style="color: red;" class="fs-6 fw-lighter">(*) Required field</p>
+			</form>
+			
+		</div>
+		
+		
+
+		<script th:inline="javascript">
+			//Al caricamento controllo se l'input/hidden in id=message, contiene un valore diverso da stringa vuota. In quel caso mostro il popup
+			window.onload = function() {
+			    var message = document.getElementById("message").value;
+			    document.getElementById("message").value="";
+			    var test = document.getElementById("message").value;
+				console.log(test);
+			    if (message != "") {
+			        alert(message);
+			    }
+			}
+			
+			function checkPassword() {
+			    const passwordInput = document.getElementById('password');
+			    const confirmPasswordInput = document.getElementById('passwordConfirm');
+			    const password = passwordInput.value;
+			    const confirmPassword = confirmPasswordInput.value;
+				
+				passwordInput.addEventListener('input', checkPassword);
+				confirmPasswordInput.addEventListener('input', checkPassword);
+			    
+			    
+			    // Verifica la corrispondenza delle password
+			    if (password !== confirmPassword) {
+					console.log("Le password non corrispondono!");
+			        document.getElementById("passwordConfirmHelp").innerHTML = "<strong style='color:red'>Le password non corrispondono! </strong>";
+			    } else {
+   					console.log("OK! Le password corrispondono!");
+			        document.getElementById("passwordConfirmHelp").innerHTML = "<span style='color:green'>OK! Le password corrispondono! </span>";
+			    }
+			
+			    if(password.length < 10)
+			    	document.getElementById("passwordConfirmHelp").innerHTML = "<strong style='color:red'>La password deve essere lunga almeno 10 caratteri</strong>";
+			    // potrei usare una regex tipo questa per vedere se la password contiene almeno una lettera maiuscola, una lettera minuscola, un numero e un carattere speciale
+			    //const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
+			    //return regex.test(password);
+			    //e fare il check se tutte le clausole sono rispettate.
+			    
+			    //In fine mettere su disabed il pulsante di invio, per default direttamente nel form
+			    //ed impostarlo enabled solo se tutte le richieste del password check sono rispettate con:
+			    //const submitButton = document.getElementById('submitButton'); 
+			    //if( vari check ok)  submitButton.enabled;
+			}
+			
+		</script>
+		
+	</body>
+</html>

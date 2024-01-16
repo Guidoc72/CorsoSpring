@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html 	lang="it"
+		xmlns="http://www.thymeleaf.org">
+	<head>
+ 		<th:block th:insert="~{fragments/general.html :: header_fragment}"></th:block>
+
+
+		<title>Registration</title>
+	</head>
+	<body>
+
+
+		<header th:insert="~{fragments/general.html :: menu_fragment}"></header>
+
+
+
+		<div class="container mt-5">
+
+			<form th:action="@{/updateUser}" method="post" th:object="${dbUserToEdit}">
+				<h1>Edit User</h1>
+
+				<input type="hidden" class="form-control" id="userid"  aria-describedby="firstnameHelp" th:field="*{id}" th:value="*{id}" >
+				<div class="mb-4">
+					<label for="firstname" class="form-label">First Name</label>
+					<input type="text" class="form-control" id="firstname"  aria-describedby="firstnameHelp" th:field="*{firstName}" th:value="*{firstName}">
+				</div>
+				<div class="mb-4">
+					<label for="lastname" class="form-label">Last Name</label>
+					<input type="text" class="form-control" id="lastname"  aria-describedby="lastnameHelp" th:field="*{lastName}"  th:value="*{lastName}">
+				</div>					
+				<div class="mb-4">
+					<label for="email" class="form-label">Email address</label>
+					<input type="email" class="form-control" id="email" aria-describedby="emailHelp" th:field="*{email}"  th:value="*{email}">
+				</div>					
+				<div class="mb-4">
+					<label for="officephone" class="form-label">Office phone number</label>
+					<input type="tel" class="form-control" id="officephone" th:field="*{phone}" th:value="*{phone}">
+				</div>				
+				<div class="mb-4">
+					<label for="mobile" class="form-label">Mobile phone number</label>
+					<input type="tel" class="form-control" id="mobile"  th:field="*{mobile}" th:value="*{mobile}">
+				</div>	
+				<div class="mb-4">
+					<label for="username" class="form-label">Choose Username</label>
+					<input type="text" class="form-control" id="username"  th:field="*{username}" aria-describedby="usernameHelp"   th:value="*{username}">
+				</div>
+				<div class="mb-4">
+					<label for="password" class="form-label">Choose Password</label>
+					<input type="password" class="form-control" id="password" aria-describedby="passwordHelp" th:field="*{password}"   th:value="*{password}">
+				</div>
+				<div class="mb-4">
+					<strong class="me-3">Roles...</strong>
+	                <span th:each="role : ${allRoles}">
+	                    <label>
+	                        <input type="checkbox" th:value="${role.id}"  th:field="*{roles}"
+	                        			th:checked="${dbUserToEdit.roles.contains(role)}"  />
+	                        <span th:text="${role.roleName}"></span>
+	                    </label>
+	                </span>
+				</div>		
+
+				<button type="submit" class="btn btn-primary">Update</button>
+				<br>
+			</form>
+			
+		</div>
+		
+		
+		<input type="hidden" id="message" th:value="${saveResultMessage}" />
+
+		<script th:inline="javascript">
+			//Al caricamento controllo se l'input/hidden in id=message, contiene un valore diverso da stringa vuota. In quel caso mostro il popup
+			window.onload = function() {
+			    var message = document.getElementById("message").value;
+			    if (message != "") {
+			        alert(message);
+			    }
+			    document.getElementById("message").innerText="";
+			}
+		</script>
+-->		
+	</body>
+</html>

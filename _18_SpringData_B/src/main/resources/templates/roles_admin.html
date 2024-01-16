@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html 	lang="it"
+		xmlns="http://www.thymeleaf.org">
+	<head>
+ 		<th:block th:insert="~{fragments/general.html :: header_fragment}"></th:block>
+
+
+		<title>Roles Administration</title>
+	</head>
+	<body>
+
+		<header th:insert="~{fragments/general.html :: menu_fragment}"></header>
+
+		<div class=" mt-5">
+			<h1>Roles Assignement</h1>
+
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>UserId</th>
+						<th>First name</th>
+						<th>Last name</th>
+						<th>Phone</th>
+						<th>Mobile</th>
+						<th>Email</th>
+						<th>Username</th>
+						<th>Password</th>
+						<th>Roles</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="user : ${usersList}">
+						<td th:text="${user.id}"  class="align-middle"></td>
+						<td th:text="${user.firstName}" class="align-middle"></td>
+						<td th:text="${user.lastName}" class="align-middle"></td>
+						<td th:text="${user.phone}" class="align-middle"></td>
+						<td th:text="${user.mobile}" class="align-middle"></td>
+						<td th:text="${user.email}" class="align-middle"></td>
+						<td th:text="${user.username}" class="align-middle"></td>
+						<td th:text="${user.password}" class="align-middle"></td>
+						<td>
+			                <span th:each="role : ${allRoles}">
+			                    <label>
+			                        <input type="checkbox" th:value="${role}" 
+			                        			th:checked="${user.roles.contains(role)}" disabled />
+			                        <span th:text="${role.roleName}" ></span>
+			                    </label>
+			                </span>
+						</td>	
+						<td class="align-middle">
+							<a th:href="'/edit/' + ${user.id}"><button class="btn btn-warning align-middle" >Modify</button></a> 
+						</td>
+						<td class="align-middle">
+							<a th:href="'/delete/' + ${user.id}"><button class="btn btn-danger align-middle" >Delete</button></a> 
+						</td>					
+					</tr>
+				</tbody>
+				
+			</table>
+			
+		</div>
+
+
+
+	</body>
+</html>

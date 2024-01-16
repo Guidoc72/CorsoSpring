@@ -1,0 +1,28 @@
+Dopo aver creato le due classi entity ed aver configurato il file "application.properties"
+eseguo il programma e controllo che il DB e le tabelle vengano correttamente create.
+Dobbiamo anche inserire nel DB i ruoli essenziali che vogliamo gestire: admin, user, guest, ecc...
+Lo facciamo direttamente da Workbench
+
+Poi inizio a crearmi delle bozze di view e i relativi controller per poter accedere alle pagine create, 
+sebbene ancora vuote (contengono solo una ul-li che funge da menù di navigazione)
+Importo i CDN di bootstrap
+
+Poi mi accorgo che ho tanto codice ripetuto, così creo un fragment e ci sposto le parti comuni di header e del menù, intanto.
+Creo anche un foglio di stile che mi potrebbe servire e lo aggiungo nel fragment
+
+Sistemo il form di registrazione nella view registration.html
+Contemporamenamente, imbastisco un RegistrationController che riceva i dati
+
+A questo punto devo iniziare a creare Service e Repository
+
+
+
+
+
+
+
+
+
+
+
+--   Creare poi un utente admin/admin nel Database, che sarà colui che è preposto ad assegnare i ruoli agli utenti.
