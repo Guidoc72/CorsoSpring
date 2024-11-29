@@ -55,7 +55,7 @@ public class RolesAdminController {
  * @return String page
  */
 	@GetMapping("/edit/{id}")
-	public String editUser (@PathVariable(name = "id") Long id, HttpSession session, Model model){ 
+	public String editUser (@PathVariable Long id, HttpSession session, Model model){ 
 		System.out.println("===================================== @GetMapping( /EDIT ) ==================================");
 		if((boolean) session.getAttribute("userIsAdmin")) {
 			User dbUserToEdit =  userService.getUserById(id);
@@ -89,7 +89,7 @@ public class RolesAdminController {
  * @return String page
  */
 	@GetMapping("/delete/{id}")
-	public String deleteUser (@PathVariable(name = "id") Long id, HttpSession session, Model model){ 
+	public String deleteUser (@PathVariable Long id, HttpSession session, Model model){ 
 		System.out.println("===================================== @GetMapping( /DELETE ) ==================================");
 		if((boolean) session.getAttribute("userIsAdmin")) {
 			userService.deleteUserById(id);

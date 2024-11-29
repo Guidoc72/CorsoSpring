@@ -33,7 +33,7 @@ public class User implements Serializable {
 	private Long id;
 	
 
-	@Column(name="user_name", nullable = false, length = 15, unique = true)
+	@Column(name="user_name", nullable = false, length = 20, unique = true)
 	private String username;
 	
 	@Pattern(regexp = "[a-zA-Z\\s]{3,30}", message = "La stringa deve contenere almeno 3 caratteri diversi da numeri e simboli")

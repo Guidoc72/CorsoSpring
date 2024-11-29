@@ -55,7 +55,7 @@ public class LoginController {
 				
 				//controllo se l'utente è admin:
 				boolean isAdmin = dbUser.getRoles().stream()
-												   .filter(role->role.getRoleName().equals("Admin"))
+												   .filter(role->role.getRoleName().equalsIgnoreCase("Admin"))
 												   .findFirst()
 												   .isPresent();
 				if(isAdmin)
